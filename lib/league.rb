@@ -32,19 +32,11 @@ class League
   def most_expensive_player
     all_players = get_all_players
 
-    highest_salary = all_players.max_by do |player|
-      player.salary
-    end.salary
-
-    most_expensive_overall = []
-
-    all_players.each do |player|
-      if player.salary >= highest_salary
-        most_expensive_overall << player.name
-      end
+    most_expensive = all_players.find_all do |player|
+      player.salary >= highest_salary
     end
 
-    most_expensive_overall
+    most_expensive.map {|player| player.name}
   end
 
   def get_all_players
@@ -53,6 +45,14 @@ class League
     end
 
     all_players = all_players.flatten
+  end
+
+  def highest_salary
+    all_players = get_all_players
+
+    all_players.max_by do |player|
+      player.salary
+    end.salary
   end
 
   def players_by_salary_range
