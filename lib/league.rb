@@ -20,7 +20,6 @@ class League
 
   def players_by_team
     players_by_team = Hash.new
-
     @teams.each do |team|
       player_list = team.players.map do |player|
         player.name
@@ -29,4 +28,28 @@ class League
     end
     players_by_team
   end
+
+  def most_expensive_player
+    all_players = @teams.map do |team|
+      team.players
+    end
+
+    all_players = all_players.flatten
+
+    highest_salary = all_players.max_by do |player|
+      player.salary
+    end.salary
+
+    most_expensive_overall = []
+
+    all_players.each do |player|
+      if player.salary >= highest_salary
+        most_expensive_overall << player.name
+      end
+    end
+
+    most_expensive_overall
+  end
+
+
 end
