@@ -19,12 +19,11 @@ class League
   end
 
   def players_by_team
-    players_by_team = Hash.new
+    players_by_team = Hash.new {|hash, team| hash[team] = []}
     @teams.each do |team|
-      player_list = team.players.map do |player|
-        player.name
+      team.players.each do |player|
+        players_by_team[team] << player.name
       end
-      players_by_team[team] = player_list
     end
     players_by_team
   end
